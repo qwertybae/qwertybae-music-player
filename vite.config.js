@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  root: "src",   // 👈👈👈 DÒNG CỨU RỖI CUỘC ĐỜI
+  root: "src", 
   clearScreen: false,
   server: {
     port: 5173,
@@ -12,6 +12,6 @@ export default defineConfig({
     target: ['es2021', 'chrome100', 'safari13'],
     minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
     sourcemap: !!process.env.TAURI_DEBUG,
-    outDir: "../dist", // (khuyên thêm)
+    outDir: "../dist", 
   },
 })
