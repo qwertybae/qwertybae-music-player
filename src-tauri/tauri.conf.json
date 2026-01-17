@@ -8,13 +8,13 @@
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build",
     "devUrl": "http://localhost:5173",
-    "frontendDist":"../dist"
+    "frontendDist": "../dist"
   },
   "app": {
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "music-player",
+        "title": "Music Player",
         "width": 246,
         "height": 406,
         "resizable": true,
@@ -25,7 +25,7 @@
       "csp": null,
       "assetProtocol": {
         "enable": true,
-        "scope": ["$APPDATA/**", "$RESOURCE/**","**"]
+        "scope": ["**"]
       }
     }
   },

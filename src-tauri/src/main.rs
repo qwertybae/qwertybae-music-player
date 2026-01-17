@@ -4,7 +4,6 @@
 use std::fs;
 use std::path::PathBuf;
 use serde::{Deserialize, Serialize};
-use tauri::Manager;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 struct Song {
@@ -15,18 +14,18 @@ struct Song {
 
 // scan music folder
 #[tauri::command]
-fn get_songs(app: tauri::AppHandle, music_folder: String) -> Result<Vec<Song>, String> {
+fn get_songs(music_folder: String) -> Result<Vec<Song>, String> {
     let mut songs = Vec::new();
     
     let entries = fs::read_dir(&music_folder)
-        .map_err(|e| format!("Cannot read folder: {}", e))?;
+        .map_err(|e| format!("Cannot read folder '{}': {}", music_folder, e))?;
     
     for entry in entries {
         let entry = entry.map_err(|e| format!("Error reading entry: {}", e))?;
         let path = entry.path();
         
         if let Some(ext) = path.extension() {
-            if ext == "mp3" {
+            if ext == "mp3" || ext == "MP3" {
                 let file_name = path.file_stem()
                     .and_then(|n| n.to_str())
                     .unwrap_or("")
@@ -34,9 +33,14 @@ fn get_songs(app: tauri::AppHandle, music_folder: String) -> Result<Vec<Song>, S
                 
                 let song_path = path.to_str().unwrap_or("").to_string();
                 
-                // cover with the same name
+                // cover with the same name (check both png and jpg)
                 let mut cover_path = PathBuf::from(&music_folder);
                 cover_path.push(format!("{}.png", file_name));
+                
+                if !cover_path.exists() {
+                    cover_path = PathBuf::from(&music_folder);
+                    cover_path.push(format!("{}.jpg", file_name));
+                }
                 
                 let cover = if cover_path.exists() {
                     cover_path.to_str().unwrap_or("").to_string()
@@ -59,9 +63,15 @@ fn get_songs(app: tauri::AppHandle, music_folder: String) -> Result<Vec<Song>, S
 
 #[tauri::command]
 fn get_music_folder() -> String {
-    // 
+    // Get current directory and add 'music' folder
     let mut path = std::env::current_dir().unwrap_or_default();
     path.push("music");
+    
+    // Create music folder if it doesn't exist
+    if !path.exists() {
+        let _ = fs::create_dir_all(&path);
+    }
+    
     path.to_str().unwrap_or("").to_string()
 }
 
