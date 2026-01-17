@@ -2,21 +2,31 @@
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "music-player",
   "version": "0.1.0",
-  "identifier": "com.ad.music-player",
+  "identifier": "com.musicplayer.dev",
+  
   "build": {
-    "frontendDist": "../src"
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devUrl": "http://localhost:5173",
+    "frontendDist":"../dist"
   },
   "app": {
     "withGlobalTauri": true,
     "windows": [
       {
         "title": "music-player",
-        "width": 800,
-        "height": 600
+        "width": 246,
+        "height": 406,
+        "resizable": true,
+        "fullscreen": false
       }
     ],
     "security": {
-      "csp": null
+      "csp": null,
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["$APPDATA/**", "$RESOURCE/**","**"]
+      }
     }
   },
   "bundle": {
