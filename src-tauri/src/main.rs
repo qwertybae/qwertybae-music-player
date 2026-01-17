@@ -15,6 +15,8 @@ struct Song {
 // scan music folder
 #[tauri::command]
 fn get_songs(music_folder: String) -> Result<Vec<Song>, String> {
+    println!("🔍 Scanning folder: {}", music_folder);
+    
     let mut songs = Vec::new();
     
     let entries = fs::read_dir(&music_folder)
@@ -23,6 +25,8 @@ fn get_songs(music_folder: String) -> Result<Vec<Song>, String> {
     for entry in entries {
         let entry = entry.map_err(|e| format!("Error reading entry: {}", e))?;
         let path = entry.path();
+        
+        println!(" Found file: {:?}", path);
         
         if let Some(ext) = path.extension() {
             if ext == "mp3" || ext == "MP3" {
@@ -43,33 +47,57 @@ fn get_songs(music_folder: String) -> Result<Vec<Song>, String> {
                 }
                 
                 let cover = if cover_path.exists() {
+                    println!("  Found cover: {:?}", cover_path);
                     cover_path.to_str().unwrap_or("").to_string()
                 } else {
+                    println!(" No cover for: {}", file_name);
                     String::new()
                 };
                 
                 songs.push(Song {
-                    name: file_name,
+                    name: file_name.clone(),
                     path: song_path,
                     cover,
                 });
+                
+                println!(" Added song: {}", file_name);
             }
         }
     }
     
     songs.sort_by(|a, b| a.name.cmp(&b.name));
+    println!(" Total songs found: {}", songs.len());
     Ok(songs)
 }
 
 #[tauri::command]
 fn get_music_folder() -> String {
-    // Get current directory and add 'music' folder
-    let mut path = std::env::current_dir().unwrap_or_default();
+    
+    let current = std::env::current_dir().unwrap_or_default();
+    println!(" Current directory: {:?}", current);
+    
+    
+    let mut path = current.clone();
+    if path.ends_with("src-tauri") {
+        path.pop(); 
+    }
     path.push("music");
     
-    // Create music folder if it doesn't exist
+    println!("Music folder path: {:?}", path);
+    println!("Folder exists: {}", path.exists());
+    
     if !path.exists() {
+        println!("  Creating music folder...");
         let _ = fs::create_dir_all(&path);
+    }
+    
+    if let Ok(entries) = fs::read_dir(&path) {
+        println!(" Contents of music folder:");
+        for entry in entries {
+            if let Ok(entry) = entry {
+                println!("  - {:?}", entry.file_name());
+            }
+        }
     }
     
     path.to_str().unwrap_or("").to_string()

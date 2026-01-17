@@ -19,7 +19,7 @@ async function loadSongs() {
     const musicFolder=await invoke('get_music_folder');
     console.log('Music folder:',musicFolder);
 
-    songs=await invoke('get_songs', { musicFolder });
+    songs=await invoke('get_songs', { musicFolder: musicFolder });
     console.log('Found songs: ', songs);
 
     if(songs.length>0)
