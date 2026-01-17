@@ -15,7 +15,7 @@ struct Song {
 // scan music folder
 #[tauri::command]
 fn get_songs(music_folder: String) -> Result<Vec<Song>, String> {
-    println!("🔍 Scanning folder: {}", music_folder);
+    println!(" Scanning folder: {}", music_folder);
     
     let mut songs = Vec::new();
     
@@ -47,10 +47,10 @@ fn get_songs(music_folder: String) -> Result<Vec<Song>, String> {
                 }
                 
                 let cover = if cover_path.exists() {
-                    println!("  Found cover: {:?}", cover_path);
+                    println!(" Found cover: {:?}", cover_path);
                     cover_path.to_str().unwrap_or("").to_string()
                 } else {
-                    println!(" No cover for: {}", file_name);
+                    println!("No cover for: {}", file_name);
                     String::new()
                 };
                 
@@ -72,10 +72,8 @@ fn get_songs(music_folder: String) -> Result<Vec<Song>, String> {
 
 #[tauri::command]
 fn get_music_folder() -> String {
-    
     let current = std::env::current_dir().unwrap_or_default();
-    println!(" Current directory: {:?}", current);
-    
+    println!("📂 Current directory: {:?}", current);
     
     let mut path = current.clone();
     if path.ends_with("src-tauri") {
@@ -83,8 +81,8 @@ fn get_music_folder() -> String {
     }
     path.push("music");
     
-    println!("Music folder path: {:?}", path);
-    println!("Folder exists: {}", path.exists());
+    println!(" Music folder path: {:?}", path);
+    println!(" Folder exists: {}", path.exists());
     
     if !path.exists() {
         println!("  Creating music folder...");
