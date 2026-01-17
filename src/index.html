@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -32,4 +32,67 @@
     <audio id="audioPlayer"></audio>
 
   </body>
+</html> -->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music Player</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="player-card">
+    <div class="song-title-bar">
+      <div id="songTitle">no song</div>
+    </div>
+
+    <div class="album-art-container">
+      <img id="albumArt" src="https://via.placeholder.com/200x180/89CFF0/FFFFFF?text=♪" alt="Album Art" />
+    </div>
+
+    <div class="controls-container">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="controls">
+        <button class="control-btn" id="prevBtn" title="Previous">
+          <svg viewBox="0 0 24 24">
+            <path d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z" />
+          </svg>
+        </button>
+
+        <button class="control-btn play-btn" id="playBtn" title="Play/Pause">
+          <svg id="playIcon" viewBox="0 0 24 24">
+            <path d="M8,5.14V19.14L19,12.14L8,5.14Z" />
+          </svg>
+        </button>
+
+        <button class="control-btn" id="nextBtn" title="Next">
+          <svg viewBox="0 0 24 24">
+            <path d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="username">
+        <span>@qwertybae</span>
+        <span class="heart-icon">♥</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="playlist">
+    <h3>playlist ♪</h3>
+    <ul id="songList"></ul>
+  </div>
+
+  <audio id="audioPlayer"></audio>
+
+  <script type="module" src="main.js"></script>
+</body>
 </html>
