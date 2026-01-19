@@ -12,6 +12,9 @@ const playBtn=document.getElementById('playBtn');
 const prevBtn=document.getElementById('prevBtn');
 const nextBtn=document.getElementById('nextBtn');
 const songList=document.getElementById('songList');
+const progressFill=document.getElementById('progressFill');
+const progressBar=document.querySelector('.progress-bar');
+const playIcon=document.getElementById('playIcon');
 
 // load songs
 async function loadSongs() {
@@ -79,11 +82,11 @@ function loadSong(index) {
 playBtn.onclick=() => {
   if(isPlaying){
     audioPlayer.pause();
-    playBtn.textContent='▶ Play';
+    // playBtn.textContent='▶ Play';
     isPlaying = false;
   } else {
     audioPlayer.play();
-    playBtn.textContent='⏸ Pause';
+    // playBtn.textContent='⏸ Pause';
     isPlaying=true;
   }
 };
@@ -104,14 +107,28 @@ audioPlayer.onended=()=> {
 
 audioPlayer.onplay = () => {
   isPlaying = true;
-  playBtn.textContent = '⏸ Pause';
+  playBtn.classList.add('playing');
+  playIcon.src='./assets/buttons/btn-pause.png';
 };
 
 audioPlayer.onpause = () => {
   isPlaying = false;
-  playBtn.textContent = '▶ Play';
+  playBtn.classList.remove('playing');
+  playIcon.scr='./assets/buttons/btn-play.png';
 };
 
+audioPlayer.ontimeupdate = () => {
+  if(audioPlayer.duration) {
+    const progress=(audioPlayer.currentTime/audioPlayer.duration) * 100;
+    progressFill.style.width=progress+'%';
+  }
+}
+
+progressBar.onclick =(e) => {
+  const rect=progressBar.getBoundingClientRect();
+  const percent=(e.clientX-rect.left)/rect.width;
+  audioPlayer.currentTime=percent*audioPlayer.duration;
+};
 
 window.addEventListener('DOMContentLoaded',() => {
   loadSongs();
