@@ -102,7 +102,10 @@ nextBtn.onclick=() => {
 };
 
 audioPlayer.onended=()=> {
-  nextBtn.click();
+  isPlaying=true;
+  currentIndex=(currentIndex+1)%songs.length;
+  loadSong(currentIndex);
+
 };
 
 audioPlayer.onplay = () => {
