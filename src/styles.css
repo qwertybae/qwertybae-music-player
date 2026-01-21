@@ -30,7 +30,7 @@ body {
 .player-card {
   width: 246px;
   /* background: linear-gradient(180deg, #89CFF0 0%, #B4E4F7 50%, #84bff4 100%); */
-  background: url('./assets/backgrounds/card-bg.png') no-repeat center center;
+  background: url('./assets/backgrounds/download\ \(11\).jpg') no-repeat center center;
   background-size: cover;
   border-radius: 25px;
   padding: 18px;
@@ -251,19 +251,28 @@ body {
 }
 
 .username {
+  font-family: "Pixelify Sans", sans-serif;
   text-align: center;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
-  color: #5B9FB8;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
+  text-transform: uppercase;
+  text-shadow: -1px 0   #0277BD,
+     1px 0   #0277BD,
+     0  -1px #0277BD,
+     0   1px #0277BD;;
   text-transform: lowercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .heart-icon {
-  color: #FF69B4;
+  color: #237fe7;
   font-size: 14px;
   animation: heartbeat 1.5s infinite;
 }
