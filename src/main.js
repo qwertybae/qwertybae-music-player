@@ -38,19 +38,9 @@ async function loadSongs() {
   }
 }
 
-// display playlist
+
 function displayPlaylist() {
-  songList.innerHTML='';
-  songs.forEach((song, index) => {
-    const li=document.createElement('li');
-    li.textContent=song.name;
-    li.onclick=() => loadSong(index);
-    if (index===currentIndex)
-    {
-      li.classList.add('active');
-    }
-    songList.appendChild(li);
-  });
+
 }
 
 function loadSong(index) {
@@ -82,11 +72,9 @@ function loadSong(index) {
 playBtn.onclick=() => {
   if(isPlaying){
     audioPlayer.pause();
-    // playBtn.textContent='▶ Play';
     isPlaying = false;
   } else {
     audioPlayer.play();
-    // playBtn.textContent='⏸ Pause';
     isPlaying=true;
   }
 };
@@ -102,22 +90,19 @@ nextBtn.onclick=() => {
 };
 
 audioPlayer.onended=()=> {
-  isPlaying=true;
+  isPlaying = true;  
   currentIndex=(currentIndex+1)%songs.length;
-  loadSong(currentIndex);
-
+  loadSong(currentIndex);  
 };
 
 audioPlayer.onplay = () => {
   isPlaying = true;
   playBtn.classList.add('playing');
-  playIcon.src='./assets/buttons/btn-pause.png';
 };
 
 audioPlayer.onpause = () => {
   isPlaying = false;
   playBtn.classList.remove('playing');
-  playIcon.scr='./assets/buttons/btn-play.png';
 };
 
 audioPlayer.ontimeupdate = () => {

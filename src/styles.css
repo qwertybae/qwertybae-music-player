@@ -296,58 +296,6 @@ body {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   border: 3px solid #5B9FB8;
   backdrop-filter: blur(10px);
+  display: none;
 }
 
-.playlist h3 {
-  color: #5B9FB8;
-  margin-bottom: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: lowercase;
-}
-
-.playlist ul {
-  list-style: none;
-}
-
-.playlist li {
-  padding: 6px 10px;
-  margin: 4px 0;
-  background: #E8F6FC;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-size: 11px;
-  color: #5B9FB8;
-  font-weight: 500;
-  text-transform: lowercase;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.playlist li:hover {
-  background: #C5E9F7;
-  transform: translateX(-2px);
-}
-
-.playlist li.active {
-  background: linear-gradient(135deg, #89CFF0 0%, #6BB8D6 100%);
-  color: white;
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(91, 159, 184, 0.4);
-}
-
-.playlist::-webkit-scrollbar {
-  width: 4px;
-}
-
-.playlist::-webkit-scrollbar-track {
-  background: #E8F6FC;
-  border-radius: 10px;
-}
-
-.playlist::-webkit-scrollbar-thumb {
-  background: #89CFF0;
-  border-radius: 10px;
-}
